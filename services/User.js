@@ -19,7 +19,13 @@ const getAll = async () => {
   return getAllUsers;
 };
 
+const getById = async (id) => {
+  const getUserById = await Users.findByPk(id);
+  return getUserById;
+};
+
 module.exports = {
   add,
   getAll,
+  getById,
 };

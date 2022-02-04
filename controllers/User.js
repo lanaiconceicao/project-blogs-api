@@ -10,6 +10,12 @@ const add = rescue(async (req, res) => {
   res.status(201).json(user);
 });
 
+const getAll = rescue(async (_req, res) => {
+  const getAllUsers = await User.getAll();
+  res.status(200).json(getAllUsers);
+});
+
 module.exports = {
   add,
+  getAll,
 };

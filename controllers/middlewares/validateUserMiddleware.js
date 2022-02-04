@@ -1,3 +1,5 @@
+const { Users } = require('../../models');
+
 const validateName = (req, res, next) => {
   const { displayName } = req.body;
 
@@ -9,7 +11,7 @@ const validateName = (req, res, next) => {
   next();
 };
 
-const validateEmail = (req, res, next) => {
+const validateEmail = async (req, res, next) => {
   const { email } = req.body;
 
   if (!email) return res.status(400).json({ message: '"email" is required' });
@@ -17,6 +19,10 @@ const validateEmail = (req, res, next) => {
   if (!(/\S+@\S+\.\S+/.test(email))) {
     return res.status(400).json({ message: '"email" must be a valid email' });
   }
+
+  const user = await Users.findOne({ where: { email } });
+
+  if (user) return res.status(409).json({ message: 'User already registered' });
 
   next();
 };

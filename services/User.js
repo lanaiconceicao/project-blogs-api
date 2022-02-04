@@ -14,6 +14,12 @@ const add = async (displayName, email, password, image) => {
   return token;
 };
 
+const getAll = async () => {
+  const getAllUsers = await Users.findAll();
+  return getAllUsers;
+};
+
 module.exports = {
   add,
+  getAll,
 };

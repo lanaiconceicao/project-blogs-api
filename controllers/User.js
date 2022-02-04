@@ -15,7 +15,17 @@ const getAll = rescue(async (_req, res) => {
   res.status(200).json(getAllUsers);
 });
 
+const getById = rescue(async (req, res) => {
+  const { id } = req.params;
+  const getUserById = await User.getById(id);
+  
+  if (!getUserById) return res.status(404).json({ message: 'User does not exist' });
+  
+  return res.status(200).json(getUserById);
+});
+
 module.exports = {
   add,
   getAll,
+  getById,
 };

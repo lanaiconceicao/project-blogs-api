@@ -49,6 +49,11 @@ app.post('/categories',
   validateNameMiddleware,
   CategoriesController.add);
 
+// Requisito 6
+app.get('/categories',
+  validateJWT.validateJWTMiddleware,
+  CategoriesController.getAll);
+
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 
 // não remova esse endpoint, e para o avaliador funcionar

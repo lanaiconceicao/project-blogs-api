@@ -31,7 +31,8 @@ app.get('/user',
 validateJWT.validateJWTMiddleware,
 UserController.getAll);
 
-app.get('/products/:id',
+// Requisito 4
+app.get('/user/:id',
 validateJWT.validateJWTMiddleware,
 UserController.getById);
 

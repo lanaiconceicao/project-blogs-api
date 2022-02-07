@@ -10,6 +10,12 @@ const add = rescue(async (req, res) => {
   res.status(201).json(categories);
 });
 
+const getAll = rescue(async (_req, res) => {
+  const getAllCategories = await CategoriesService.getAll();
+  return res.status(200).json(getAllCategories);
+});
+
 module.exports = {
   add,
+  getAll,
 };

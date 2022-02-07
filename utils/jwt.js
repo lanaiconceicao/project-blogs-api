@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 
 const { JWT_SECRET } = process.env;
 
-const signToken = (payload, duration = '1d') => jwt.sign(
+const signToken = (payload) => jwt.sign(
   payload, JWT_SECRET, {
     algorithm: 'HS256',
-    expiresIn: duration,
+    expiresIn: '1h',
   },
 );
 

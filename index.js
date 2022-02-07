@@ -1,28 +1,39 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv/config');
-const User = require('./controllers/User');
-const validateUser = require('./controllers/middlewares/validateUserMiddleware');
+const UserController = require('./controllers/UserController');
+const validateUserMiddleware = require('./controllers/middlewares/validateUserMiddleware');
 const validateJWT = require('./controllers/middlewares/validateJWTMiddleware');
+const validateLoginMiddleware = require('./controllers/middlewares/validateLoginMiddleware');
+const loginController = require('./controllers/LoginController');
+// const errorMiddleware = require('./controllers/middlewares/errorMiddleware');
 
 const app = express();
 app.use(bodyParser.json());
+// app.use(errorMiddleware);
 
 // Requisito 1
 app.post('/user',
-  validateUser.validateName,
-  validateUser.validateEmail,
-  validateUser.validatePassword,
-  User.add);
+  validateUserMiddleware.validateName,
+  validateUserMiddleware.validateEmail,
+  validateUserMiddleware.validatePassword,
+  UserController.add);
+
+// Requisito 2
+app.post('/login',
+  validateLoginMiddleware.validateEmail,
+  validateLoginMiddleware.validatePassword,
+  validateLoginMiddleware.validateLogin,
+  loginController);
 
 // Requisito 3
 app.get('/user',
 validateJWT.validateJWTMiddleware,
-User.getAll);
+UserController.getAll);
 
 app.get('/products/:id',
 validateJWT.validateJWTMiddleware,
-User.getById);
+UserController.getById);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

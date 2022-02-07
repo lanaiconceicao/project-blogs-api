@@ -1,17 +1,19 @@
 const jwt = require('../../utils/jwt');
-const User = require('../../services/User');
+const User = require('../../services/UserService');
+// const { AppError } = require('../../utils/AppError');
 
 const validateJWTMiddleware = async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token, 'authorization aqui');
+  console.log(req.headers.authorization);
 
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
+    // throw new AppError(401, 'Token not found');
   }
 
   try {
     const verifiedToken = jwt.verifyToken(token);
-    console.log(verifiedToken);
+    console.log(verifiedToken, 'verifiedToken');
     req.user = verifiedToken;
 
     const user = await User.getByEmail(verifiedToken.email);
@@ -20,8 +22,9 @@ const validateJWTMiddleware = async (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-    console.log('catch aqui Lanai');
+    console.log('caiu no catch');
     return res.status(401).json({ message: 'Expired or invalid token' });
+    // res.status(err.code).json({ message: err.message });
   }
 };
 

@@ -1,5 +1,5 @@
-// Código criado para capturar erro do JWT
-// Criado com a ajuda do vídeo da Pessoa Instrutora Raphael Caputo
+// // Código criado para capturar erro do JWT
+// // Criado com a ajuda do vídeo da Pessoa Instrutora Raphael Caputo
 
 // class appError {
 //   constructor(code, message) {

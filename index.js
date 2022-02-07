@@ -1,16 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv/config');
+
 const UserController = require('./controllers/UserController');
+const loginController = require('./controllers/LoginController');
+const CategoriesController = require('./controllers/CategoriesController');
+
 const validateUserMiddleware = require('./controllers/middlewares/validateUserMiddleware');
 const validateJWT = require('./controllers/middlewares/validateJWTMiddleware');
 const validateLoginMiddleware = require('./controllers/middlewares/validateLoginMiddleware');
-const loginController = require('./controllers/LoginController');
-// const errorMiddleware = require('./controllers/middlewares/errorMiddleware');
+const validateNameMiddleware = require('./controllers/middlewares/validateNameMiddleware');
+const serverError = require('./controllers/middlewares/server-error');
+const domainError = require('./controllers/middlewares/domain-error');
 
 const app = express();
+
 app.use(bodyParser.json());
-// app.use(errorMiddleware);
+app.use(domainError);
+app.use(serverError);
 
 // Requisito 1
 app.post('/user',
@@ -35,6 +42,12 @@ UserController.getAll);
 app.get('/user/:id',
 validateJWT.validateJWTMiddleware,
 UserController.getById);
+
+// Requisito 5
+app.post('/categories',
+  validateJWT.validateJWTMiddleware,
+  validateNameMiddleware,
+  CategoriesController.add);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

@@ -7,8 +7,6 @@ const add = rescue(async (req, res) => {
 
   const categories = await CategoriesService.add(name);
 
-  if (!name) req.status(400).json({ message: '"name" is required' });
-
   res.status(201).json(categories);
 });
 

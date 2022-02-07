@@ -4,7 +4,7 @@ const User = require('../../services/UserService');
 
 const validateJWTMiddleware = async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(req.headers.authorization);
+  console.log(req.headers.authorization, 'token vindo de headers');
 
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
@@ -24,7 +24,7 @@ const validateJWTMiddleware = async (req, res, next) => {
     console.error(err);
     console.log('caiu no catch');
     return res.status(401).json({ message: 'Expired or invalid token' });
-    // res.status(err.code).json({ message: err.message });
+    // return res.status(err.code).json({ message: err.message });
   }
 };
 

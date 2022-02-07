@@ -9,7 +9,7 @@ const add = async (displayName, email, password, image) => {
     image,
   });
 
-  const token = jwt.signToken({ displayName });
+  const token = jwt.signToken({ email });
 
   return token;
 };

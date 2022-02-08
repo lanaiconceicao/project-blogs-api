@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   BlogPosts.associate = (models) => {
     // Tipo de relacionamento: 1:N
     // BlogPosts PERTENCE À tabela Users, onde a foreign key é a userId
+    // Quando a associação vier, ela virá como 'user'
     BlogPosts.belongsTo(models.Users, { foreignKey: 'userId', as: 'user' });
   };
 

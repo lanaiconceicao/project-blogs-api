@@ -24,6 +24,9 @@ const getById = async (id) => {
   return getUserById;
 };
 
+// Criado com a ajuda do estudante Gessé Carlos
+// Ao invés de fazer a verificação pelo id, faremos pelo email
+// chamamos a função getByEmail dentro do middleware validateJWT
 const getByEmail = async (email) => {
   const findOneEmail = await Users.findOne({ where: { email } });
 

@@ -9,6 +9,13 @@ const add = rescue(async (req, res) => {
   res.status(201).json(posts);
 });
 
+const getAll = rescue(async (req, res) => {
+  const posts = await BlogPostService.getAll();
+
+  res.status(200).json(posts);
+});
+
 module.exports = {
   add,
+  getAll,
 };

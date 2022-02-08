@@ -1,4 +1,4 @@
-const { BlogPosts } = require('../models/BlogPost');
+const { BlogPosts } = require('../models');
 
 const add = async (title, content, userData) => {
   const userId = userData.id;

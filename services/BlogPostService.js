@@ -1,4 +1,4 @@
-const { BlogPosts } = require('../models');
+const { BlogPosts, Users, Categories } = require('../models');
 
 const add = async (title, content, userData) => {
   const userId = userData.id;
@@ -13,6 +13,20 @@ const add = async (title, content, userData) => {
   };
 };
 
+// É no service que cuidamos das regras de negócio e indicamos como vamos retornar para o endpoint
+const getAll = async () => {
+  const posts = await BlogPosts.findAll({
+    attributes: { exclude: ['UserId'] },
+    include: [
+      { model: Users, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return posts;
+};
+
 module.exports = {
   add,
+  getAll,
 };

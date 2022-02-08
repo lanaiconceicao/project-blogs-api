@@ -1,6 +1,7 @@
 module.exports = (sequelize, _DataTypes) => {
   const PostsCategories = sequelize.define('PostsCategories', {}, { timestamps: false });
-  // Tabela de associação
+  // Tabela de associação -> aqui apenas juntamos as informações que vem das tabelas
+  // Categories + BlogPosts = PostsCategories
 
   PostsCategories.associate = (models) => {
     // Relacionamento N:N

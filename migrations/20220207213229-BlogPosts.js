@@ -19,6 +19,8 @@ module.exports = {
         },
         userId: {
           type: Sequelize.INTEGER,
+          // aqui avisamos de onde pegaremos os valores da coluna userId
+          // tabela: 'Users' -> primary key é a coluna 'id'
           references: { model: 'Users', key: 'id' },
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE',

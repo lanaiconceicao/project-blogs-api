@@ -5,6 +5,7 @@ require('dotenv/config');
 const UserController = require('./controllers/UserController');
 const loginController = require('./controllers/LoginController');
 const CategoriesController = require('./controllers/CategoriesController');
+const BlogPostController = require('./controllers/BlogPostController');
 
 const validateUserMiddleware = require('./controllers/middlewares/validateUserMiddleware');
 const validateJWT = require('./controllers/middlewares/validateJWTMiddleware');
@@ -12,6 +13,7 @@ const validateLoginMiddleware = require('./controllers/middlewares/validateLogin
 const validateNameMiddleware = require('./controllers/middlewares/validateNameMiddleware');
 const serverError = require('./controllers/middlewares/server-error');
 const domainError = require('./controllers/middlewares/domain-error');
+const validateBlogPostMiddleware = require('./controllers/middlewares/validateBlogPostMiddleware');
 
 const app = express();
 
@@ -53,6 +55,13 @@ app.post('/categories',
 app.get('/categories',
   validateJWT.validateJWTMiddleware,
   CategoriesController.getAll);
+
+// Requisito 7
+app.post('/post',
+  validateJWT.validateJWTMiddleware,
+  validateBlogPostMiddleware.validateTitleAndContent,
+  validateBlogPostMiddleware.validateCategory,
+  BlogPostController.add);
 
 app.listen(3000, () => console.log('ouvindo porta 3000!'));
 

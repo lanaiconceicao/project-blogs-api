@@ -63,7 +63,7 @@ app.post('/post',
   validateBlogPostMiddleware.validateCategory,
   BlogPostController.add);
 
-// Requisito 8
+// Requisito 8 
 app.get('/post',
   validateJWT.validateJWTMiddleware,
   BlogPostController.getAll);
